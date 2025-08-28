@@ -1,6 +1,19 @@
 import streamlit as st
+import pandas as pd
 
-st.title("🎈 My new app")
+st.title("Strategies for Democracy")
 st.write(
-    "Let's start building! For help and inspiration, head over to [docs.streamlit.io](https://docs.streamlit.io/)."
+    "By Rob Hager"
 )
+
+df = pd.read_csv("stratdem.csv")
+
+# Select which columns to display
+col1_val = st.selectbox("Select a chapter", df.chapter)
+
+# Find the corresponding value(s) in column2
+results = df.loc[df["chapter"] == col1_val, "summary"]
+
+st.write("##### Summary")
+for r in results:
+    st.write(r)
